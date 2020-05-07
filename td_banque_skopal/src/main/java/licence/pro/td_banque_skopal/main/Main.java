@@ -3,8 +3,10 @@ package licence.pro.td_banque_skopal.main;
 import java.util.ArrayList;
 
 import licence.pro.td_banque_skopal.dao.DaoClient;
-import licence.pro.td_banque_skopal.factories.FactoryClient;
-import licence.pro.td_banque_skopal.models.Client;
+import licence.pro.td_banque_skopal.dao.DaoCompte;
+import licence.pro.td_banque_skopal.factories.FactoryCompte;
+import licence.pro.td_banque_skopal.factories.FactoryDao;
+import licence.pro.td_banque_skopal.models.Compte;
 
 public class Main {
 
@@ -16,8 +18,8 @@ public class Main {
 		
 		DaoClient instance = new DaoClient();
 		
-		Client client = instance.getClientById(2);
-		instance.delete(client);
+		/*Client client = instance.getClientById(2);
+		instance.delete(client);*/
 		
 		
 		/*System.out.println(client.getId());
@@ -48,6 +50,26 @@ public class Main {
             System.out.println(el.getName());
             System.out.println(el.getLastName());
         }*/
+		
+		DaoCompte instanceB = FactoryDao.getDaoCompte();
+		Compte compte = FactoryCompte.getCompte(56789, 42, 100.0, true);
+		
+		// instanceB.create(compte);
+		
+		// compte.setBalance(50.0);
+		// compte.setIdClient("45678");
+		// compte.setNegativeBalanceAllowed(false);
+		// instanceB.update(compte);
+		
+		// instanceB.delete(compte);
+		ArrayList<Compte> comptes = instanceB.getList();
+		for (Compte el : comptes) {
+            System.out.println(el.getId());
+            System.out.println(el.getIdClient());
+            System.out.println(el.getBalance());
+            System.out.println(el.getNegativeBalanceAllowed());
+        }
+		
 		
 		
 		

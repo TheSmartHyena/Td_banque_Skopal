@@ -31,7 +31,21 @@ public class DaoClient implements IClientDao {
 			e.printStackTrace();
 		}		
 	}
-
+	
+	public void createWithId(Client client) {
+		try {
+			PreparedStatement prepare = this.db.prepareStatement("INSERT INTO clients (id, name, lastName) VALUES(?, ?, ?)");
+              
+			prepare.setInt(1, client.getId());
+			prepare.setString(2, client.getName());
+			prepare.setString(3, client.getLastName());
+			
+			prepare.executeUpdate();				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+	
 	public void update(Client client) {
 		try {
 			PreparedStatement prepare = this.db.prepareStatement("UPDATE clients SET clients.name='" + client.getName() + "', clients.lastName='" + client.getLastName() + "' WHERE clients.id=" + client.getId());                                       	                						
@@ -61,7 +75,7 @@ public class DaoClient implements IClientDao {
 			ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM clients WHERE clients.id = " + id);
 			
 		    if (client.first()) { 		    		    	
-		    	result = FactoryClient.getClient(client.getString("id"), client.getString("name"), client.getString("lastName") );
+		    	result = FactoryClient.getClient(client.getInt("id"), client.getString("name"), client.getString("lastName") );
 		    }
 	    			              
 		  } catch (SQLException e) {
@@ -81,7 +95,7 @@ public class DaoClient implements IClientDao {
 			ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM clients");
 					    
 		    while (clients.next()) {                      		        	
-	        	result.add( FactoryClient.getClient(clients.getString(1), clients.getString(2), clients.getString(3)) );		        	
+	        	result.add( FactoryClient.getClient(clients.getInt(1), clients.getString(2), clients.getString(3)) );		        	
 		    }		    	
 		    
 		  } catch (SQLException e) {

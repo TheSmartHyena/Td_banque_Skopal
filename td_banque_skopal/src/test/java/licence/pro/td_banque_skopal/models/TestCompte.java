@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import licence.pro.td_banque_skopal.factories.FactoryClient;
 import licence.pro.td_banque_skopal.factories.FactoryCompte;
 
 public class TestCompte {
@@ -15,7 +16,7 @@ public class TestCompte {
 	
 	@Before
 	public void setUp() {
-		instance = FactoryCompte.getCompte("345678", "42", 100.0);
+		instance = FactoryCompte.getCompte(345678, 42, 100.0, true);
 	}
 	
 	@Test
@@ -29,17 +30,17 @@ public class TestCompte {
 	}
 	
 	@Test
-	public void TestCompte_idIs345678() {
-		assertEquals("345678", instance.getId());
+	public void TestCompte_idShouldBe345678() {
+		assertEquals(345678, instance.getId());
 	}
 	
 	@Test
-	public void TestCompte_idClientIs42() {
-		assertEquals("42", instance.getIdClient());
+	public void TestCompte_idClientShouldBe42() {
+		assertEquals(42, instance.getIdClient());
 	}
 	
 	@Test
-	public void TestCompte_balanceIs100() {
+	public void TestCompte_balanceShouldBe100() {
 		
 		// ==> deprecated: assertEquals(100.0, instance.getBalance());		
 		// Comparing like this because comparing two ouble with assert is deprectaed
@@ -48,6 +49,18 @@ public class TestCompte {
 			result = true;
 		}
 		assertTrue(result);
+	}
+	
+	public void TestCompte_negativeBalanceAllowedShouldBeTrue() {
+		assertTrue(instance.getNegativeBalanceAllowed());
+	}
+	
+	@Test
+	public void TestCompte_testEqualsMethod() {
+		Compte compteA = FactoryCompte.getCompte(123456, 3630, 100.0, true);
+		Compte compteB = FactoryCompte.getCompte(123456, 3630, 100.0, true);
+		
+		assertTrue(compteA.equals(compteB));
 	}
 	
 }

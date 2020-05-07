@@ -15,7 +15,7 @@ public class TestClient {
 	
 	@Before
 	public void setUp() {
-		instance = FactoryClient.getClient("42", "Dylan", "Bob");
+		instance = FactoryClient.getClient(42, "Dylan", "Bob");
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class TestClient {
 	
 	@Test
 	public void TestClient_idIs42() {
-		assertEquals("42", instance.getId());
+		assertEquals(42, instance.getId());
 	}
 	
 	@Test
@@ -49,6 +49,14 @@ public class TestClient {
 		
 		assertNotNull(instanceVide);
 		assertNotNull(instanceVide.getId());
+	}
+	
+	@Test
+	public void TestClient_testEqualsMethod() {
+		Client cliantA = FactoryClient.getClient(3630, "John", "Doe");
+		Client cliantB = FactoryClient.getClient(3630, "John", "Doe");
+		
+		assertTrue(cliantA.equals(cliantB));
 	}
 	
 }

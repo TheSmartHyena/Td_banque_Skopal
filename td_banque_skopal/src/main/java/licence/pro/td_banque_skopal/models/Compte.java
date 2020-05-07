@@ -1,36 +1,38 @@
 package licence.pro.td_banque_skopal.models;
 
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Compte {
 	
-	private String id = UUID.randomUUID().toString();
-	private String idClient;
+	private int id = ThreadLocalRandom.current().nextInt(10000, 99999);
+	private int idClient;
 	private double balance;
+	private boolean negativeBalanceAllowed;
 	
-	public Compte(String id, String idClient, double balance) {
+	public Compte(int id, int idClient, double balance, boolean negativeBalanceAllowed) {
 		this.id = id;
 		this.idClient = idClient;
 		this.balance = balance;
+		this.negativeBalanceAllowed = negativeBalanceAllowed;
 	}
 	
 	public Compte() {
 		
 	}
 	
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 	
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
-	public String getIdClient() {
+	public int getIdClient() {
 		return this.idClient;
 	}
 	
-	public void setIdClient(String idCLient) {
+	public void setIdClient(int idCLient) {
 		this.idClient = idCLient;
 	}
 	
@@ -40,6 +42,50 @@ public class Compte {
 	
 	public void setBalance(double balance) {
 		this.balance = balance;
+	}
+	
+	public boolean getNegativeBalanceAllowed() {
+		return this.negativeBalanceAllowed;
+	}
+	
+	public void setNegativeBalanceAllowed(boolean negativeBalanceAllowed) {
+		this.negativeBalanceAllowed = negativeBalanceAllowed;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = true;
+		
+		Compte compte = (Compte) obj;
+		if (!(compte.getId() == this.id)) {
+			result = false;
+		}
+		
+		if (!(compte.getIdClient() == this.idClient)) {
+			result = false;
+		}
+		
+		if (!(compte.getBalance() == this.balance)) {
+			result = false;
+		}
+		
+		if (!(compte.getNegativeBalanceAllowed() == this.negativeBalanceAllowed)) {
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		
+		result = "Id:" + this.id + "\n";
+		result = result + "IdCLient:" + this.idClient + "\n";
+		result = result + "Balance:" + this.balance + "\n";
+		result = result + "NegativeBalanceAllowed:" + this.negativeBalanceAllowed + "\n";
+		
+		return result;
 	}
 	
 }
