@@ -1,3 +1,12 @@
 Librarie utilisée: 
-- Junit
-- Mockito (enfin tentive d'utilisation)
+- Junit: Version- 8.0.20
+- Mockito (enfin tentive d'utilisation): Version- 1.10.19
+- Maven
+
+Base de donnée: 
+- Mysql
+
+Ce qui fonctionne:
+- Les DAO sur les tables compte et client sont fonctinnelle et Junité.
+- La classe qui permet les retrait/dépôt sur les comptes est presque finis ==> Manque les test fonctionnels.
+- Pas de "Front".
