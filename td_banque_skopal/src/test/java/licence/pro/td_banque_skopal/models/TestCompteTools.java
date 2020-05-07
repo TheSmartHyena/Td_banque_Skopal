@@ -33,7 +33,7 @@ private Compte instance;
 	}
 	
 	@Test 
-	public void testCompteTools_retraitNegativeTrueShouldSuccess() {
+	public void testCompteTools_retraitShouldSuccess() {
 		
 		CompteTools compteTools = SCompteTools.getInstance();
 		
@@ -46,9 +46,55 @@ private Compte instance;
         Compte compte = daoCompte.getCompteById(42);
         compteTools.retrait(compte, 60);
 
-        // assertEquals(60.0, compte.getBalance());		
+        // assertEquals(40.0, compte.getBalance());		
         boolean result = false;
 		if (40.0 == compte.getBalance()) {
+			result = true;
+		}
+		assertTrue(result);
+				
+	}
+	
+	@Test 
+	public void testCompteTools_retraitNegativeTrueShouldSuccess() {
+		
+		CompteTools compteTools = SCompteTools.getInstance();
+		
+		//  create mock
+        DaoCompte daoCompte = mock(DaoCompte.class);
+        
+        // define behavior 
+        when(daoCompte.getCompteById(42)).thenReturn( FactoryCompte.getCompte(42, 3630, 100.0, true) );
+                
+        Compte compte = daoCompte.getCompteById(42);
+        compteTools.retrait(compte, 120);
+
+        // assertEquals-20.0, compte.getBalance());		
+        boolean result = false;
+		if (-20.0 == compte.getBalance()) {
+			result = true;
+		}
+		assertTrue(result);
+				
+	}
+	
+	@Test 
+	public void testCompteTools_retraitNegativeFalseShouldFail() {
+		
+		CompteTools compteTools = SCompteTools.getInstance();
+		
+		//  create mock
+        DaoCompte daoCompte = mock(DaoCompte.class);
+        
+        // define behavior 
+        when(daoCompte.getCompteById(42)).thenReturn( FactoryCompte.getCompte(42, 3630, 100.0, false) );
+                
+        Compte compte = daoCompte.getCompteById(42);
+        compteTools.retrait(compte, 120);
+
+        // assertEquals(100.0, compte.getBalance());		
+        boolean result = false;
+		if (100 == compte.getBalance()) {
 			result = true;
 		}
 		assertTrue(result);
