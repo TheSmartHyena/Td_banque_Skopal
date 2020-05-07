@@ -26,8 +26,7 @@ public class DaoClient implements IClientDao {
 			prepare.setString(1, client.getName());
 			prepare.setString(2, client.getLastName());
 			
-			prepare.executeUpdate();
-					
+			prepare.executeUpdate();				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -62,12 +61,9 @@ public class DaoClient implements IClientDao {
 			ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM clients WHERE clients.id = " + id);
 			
 		    if (client.first()) { 		    		    	
-		    	// System.out.println(result.getString("balance"));
-		    	// System.out.println(result.getString("name"));
 		    	result = FactoryClient.getClient(client.getString("id"), client.getString("name"), client.getString("lastName") );
 		    }
-	    	
-		              
+	    			              
 		  } catch (SQLException e) {
 		    e.printStackTrace();
 		  }
