@@ -1,11 +1,10 @@
 package licence.pro.td_banque_skopal.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import licence.pro.td_banque_skopal.factories.FactoryClient;
 import licence.pro.td_banque_skopal.interfaces.IClientDao;
@@ -21,15 +20,37 @@ public class DaoClient implements IClientDao {
 	}
 	
 	public void create(Client client) {
-		
+		try {
+			PreparedStatement prepare = this.db.prepareStatement("INSERT INTO clients (name, lastName) VALUES(?, ?)");
+                                       	                   
+			prepare.setString(1, client.getName());
+			prepare.setString(2, client.getLastName());
+			
+			prepare.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
 	}
 
 	public void update(Client client) {
-		
+		try {
+			PreparedStatement prepare = this.db.prepareStatement("UPDATE clients SET clients.name='" + client.getName() + "', clients.lastName='" + client.getLastName() + "' WHERE clients.id=" + client.getId());                                       	                						
+			prepare.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void delete(Client client) {
-		
+		try {
+			PreparedStatement prepare = this.db.prepareStatement("DELETE FROM clients WHERE clients.id=" + client.getId());                                       	                   
+			prepare.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Client getClientById(int id) {
@@ -64,7 +85,7 @@ public class DaoClient implements IClientDao {
 			ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM clients");
 					    
 		    while (clients.next()) {                      		        	
-	        	result.add( FactoryClient.getClient(clients.getString(1), clients.getString(2), clients.getString(2)) );		        	
+	        	result.add( FactoryClient.getClient(clients.getString(1), clients.getString(2), clients.getString(3)) );		        	
 		    }		    	
 		    
 		  } catch (SQLException e) {
