@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import licence.pro.td_banque_skopal.factories.FactoryClient;
 import licence.pro.td_banque_skopal.interfaces.IClientDao;
 import licence.pro.td_banque_skopal.jdbc.ConnexionMysql;
 import licence.pro.td_banque_skopal.models.Client;
@@ -32,27 +33,45 @@ public class DaoClient implements IClientDao {
 	}
 
 	public Client getClientById(int id) {
+		Client result = null;
 		
 		try {
-			ResultSet result = this.db.createStatement(
+			ResultSet client = this.db.createStatement(
 			ResultSet.TYPE_SCROLL_INSENSITIVE,
 			ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM clients WHERE clients.id = " + id);
-		    if (result.first()) { 		    		    	
-		    	System.out.println(result.getString("balance"));
-		    	System.out.println(result.getString("name"));
+			
+		    if (client.first()) { 		    		    	
+		    	// System.out.println(result.getString("balance"));
+		    	// System.out.println(result.getString("name"));
+		    	result = FactoryClient.getClient(client.getString("id"), client.getString("name"), client.getString("lastName") );
 		    }
-		    	
+	    	
 		              
 		  } catch (SQLException e) {
 		    e.printStackTrace();
 		  }
 		
 		
-		return new Client();
+		return result;
 	}
 	
-	public List<Client> getList() {
-		return new ArrayList<Client>();
+	public ArrayList<Client> getList() {		
+		ArrayList<Client> result = new ArrayList<Client>();
+		
+		try {
+			ResultSet clients = this.db.createStatement(
+			ResultSet.TYPE_SCROLL_INSENSITIVE,
+			ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM clients");
+					    
+		    while (clients.next()) {                      		        	
+	        	result.add( FactoryClient.getClient(clients.getString(1), clients.getString(2), clients.getString(2)) );		        	
+		    }		    	
+		    
+		  } catch (SQLException e) {
+		    e.printStackTrace();
+		  }
+								
+		return result;
 	}
 	
 	public Client read() {
