@@ -21,6 +21,20 @@ private Connection db = null;
 	
 	public void create(Compte compte) {
 		try {
+			PreparedStatement prepare = this.db.prepareStatement("INSERT INTO accounts (idClient, balance, negativeBalanceAllowed) VALUES(?, ?, ?)");
+			
+			prepare.setInt(1, compte.getIdClient());
+			prepare.setDouble(2, compte.getBalance());
+			prepare.setBoolean(3, compte.getNegativeBalanceAllowed());
+			
+			prepare.executeUpdate();				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public void createWithId(Compte compte) {
+		try {
 			PreparedStatement prepare = this.db.prepareStatement("INSERT INTO accounts (id, idClient, balance, negativeBalanceAllowed) VALUES(?, ?, ?, ?)");
 			
 			prepare.setInt(1, compte.getId());
@@ -63,7 +77,7 @@ private Connection db = null;
 			ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM accounts WHERE accounts.id = " + id);
 			
 		    if (compte.first()) { 		    		    	
-		    	result = FactoryCompte.getCompte(compte.getInt("id"), compte.getInt("clientId"), compte.getDouble("balance"), compte.getBoolean("allowedNegativeBalance") );
+		    	result = FactoryCompte.getCompte(compte.getInt("id"), compte.getInt("idClient"), compte.getDouble("balance"), compte.getBoolean("negativeBalanceAllowed") );
 		    }
 	    			              
 		  } catch (SQLException e) {
