@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConnexionMysql {
 
-	private static String url = "jdbc:mysql://mysql-thesmarthyena.alwaysdata.net:3306/thesmarthyena_test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private static String user = "199681";
-	private static String password = "Rejvesh789?";
+	private static String url = "jdbc:mysql://url:port/nomDb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static String user = "user";
+	private static String password = "password";
 	private static Connection instance;
 	
 	public static Connection getInstance() {
