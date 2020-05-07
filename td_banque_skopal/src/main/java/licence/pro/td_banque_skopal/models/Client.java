@@ -1,6 +1,5 @@
 package licence.pro.td_banque_skopal.models;
 
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Client {
@@ -8,7 +7,6 @@ public class Client {
 	private int id = ThreadLocalRandom.current().nextInt(10000, 99999);
 	private String lastName;
 	private String name;
-	private double balance;
 
 	public Client(int id, String name, String lastName) {
 		this.id = id;
@@ -80,4 +78,3 @@ public class Client {
 	}
 
 }
-

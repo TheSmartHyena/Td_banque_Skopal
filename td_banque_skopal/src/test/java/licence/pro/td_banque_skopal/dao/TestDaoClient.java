@@ -22,8 +22,7 @@ public class TestDaoClient {
 	
 	@BeforeClass
 	public static void setupClass() {
-		instance = FactoryDao.getDaoClient();
-		
+		instance = FactoryDao.getDaoClient();		
 	}
 	
 	@Before
@@ -83,7 +82,6 @@ public class TestDaoClient {
 		
 	@Test
 	public void TestDaoClient_delete() {
-		
 		instance.delete(clientTest);
 		assertNull(instance.getClientById(clientTest.getId()));
 	}
